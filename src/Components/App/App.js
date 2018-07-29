@@ -5,6 +5,19 @@ import Playlist from '../Playlist/Playlist';
 import './App.css';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+      this.state = {
+        searchResults: [
+          {
+            name: "Highway Tune", 
+            artist: "Greta Van Fleet", 
+            album: "Black Smoke Rising", 
+            id: 1235
+          }
+        ]
+      }
+  }
   render() {
     return (
       <div className="App-wrap">
@@ -12,8 +25,9 @@ class App extends Component {
           <div className="App">
             <SearchBar />
             <div className="App-playlist">
-              <SearchResults />
-              <Playlist />
+              {/* Pass state of component to SearchResults */}
+              <SearchResults searchResults={this.state.searchResults} />
+              {/* <Playlist /> */}
             </div>
           </div>
       </div>
