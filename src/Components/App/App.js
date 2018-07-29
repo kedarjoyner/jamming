@@ -15,6 +15,27 @@ class App extends Component {
             album: "Black Smoke Rising", 
             id: 1235
           }
+        ], 
+        playlistName: "New Music", 
+        playlistTracks: [
+          {
+            name: "Highway Tune", 
+            artist: "Greta Van Fleet", 
+            album: "Black Smoke Rising", 
+            id: 1235
+          }, 
+          {
+            name: "Daisy", 
+            artist: "Goodbye June", 
+            album: "Magic Valley", 
+            id: 3447
+          },
+          {
+            name: "Wild Animal", 
+            artist: "Rival Sons", 
+            album: "Head Down", 
+            id: 8475
+          }
         ]
       }
   }
@@ -25,9 +46,11 @@ class App extends Component {
           <div className="App">
             <SearchBar />
             <div className="App-playlist">
-              {/* Pass state of component to SearchResults */}
+              {/* Pass state of component to SearchResults. SearchResults renders TrackList */}
               <SearchResults searchResults={this.state.searchResults} />
-              {/* <Playlist /> */}
+
+              {/* Pass state of component to PlayList. PlayList renders another TrackList */}
+              <Playlist playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} />
             </div>
           </div>
       </div>

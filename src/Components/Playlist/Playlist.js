@@ -9,8 +9,13 @@ class Playlist extends Component {
         return (
             <div className="Playlist">
                 <input defaultValue={'New Playlist'}/>
-                {/* Add a TrackList component */}
-                <TrackList/>
+                {
+                    /* Pass state of playlistTracks property to TrackList
+                     * Property gets moved through .map() function in ../Tracklist/Tracklist.js 
+                     * and rendered by ../Track/Track.js
+                    */
+                }
+                <TrackList tracks={this.props.playlistTracks}/>
                 <a className="Playlist-save">Save to Spotify</a>
             </div>
 

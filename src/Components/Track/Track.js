@@ -21,7 +21,7 @@ class Track extends Component {
         return(
             <div className="Track">
                 <div className="Track-information">
-        {/* Property gets added Task via .map() in ../TrackList/TrackList.js */}
+        {/* Property pulling from .map() function in ../TrackList/TrackList.js */}
                     <h3>{this.props.track.name}</h3>
                     <p>{this.props.track.artist} | {this.props.track.album}</p>
                 </div>

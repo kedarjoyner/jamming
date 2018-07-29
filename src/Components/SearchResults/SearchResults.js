@@ -9,8 +9,13 @@ class SearchResults extends Component {
         return (
             <div className="SearchResults">
                 <h2>Results</h2>
-                {/* Pass state of searchResults property to TrackList */}
-                <TrackList tracks={this.props.searchResults} />
+                {
+                    /* Pass state of searchResults property to TrackList
+                     * Property gets moved through .map() function in ../Tracklist/Tracklist.js 
+                     * and rendered by ../Track/Track.js
+                    */
+                }               
+                 <TrackList tracks={this.props.searchResults} />
             </div>
         );
     }

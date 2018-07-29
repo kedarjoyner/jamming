@@ -14,8 +14,9 @@ class TrackList extends Component {
                      * Pass track as property to Track component
                     */
                 }
-                
+
                 {this.props.tracks.map(track => <Track track={track} key={track.id}/>)}
+
             </div>
         );
     }
