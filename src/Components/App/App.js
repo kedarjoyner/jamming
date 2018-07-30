@@ -14,16 +14,7 @@ class App extends Component {
             artist: "Greta Van Fleet", 
             album: "Black Smoke Rising", 
             id: 1235
-          }
-        ], 
-        playlistName: "New Music", 
-        playlistTracks: [
-          {
-            name: "Highway Tune", 
-            artist: "Greta Van Fleet", 
-            album: "Black Smoke Rising", 
-            id: 1235
-          }, 
+          },
           {
             name: "Daisy", 
             artist: "Goodbye June", 
@@ -36,7 +27,27 @@ class App extends Component {
             album: "Head Down", 
             id: 8475
           }
-        ]
+        ], 
+        playlistName: "New Music", 
+        playlistTracks: []
+      }
+      // Bind current value of this to addTrack()
+      this.addTrack = this.addTrack.bind(this);
+  }
+  addTrack(track){
+    const playlistTracks = this.state.playlistTracks;
+    if(playlistTracks.find(addedTrack => 
+      addedTrack.id === track.id)) {
+        return;
+      } else {
+        // Cannot push into a state array in React
+        // because you don't want to modify the original array
+        // Concat does not modify the original array
+        // Reference: https://blog.logrocket.com/immutability-in-react-ebe55253a1cc
+        const newTrack = playlistTracks.concat(track);
+        this.setState({
+          playlistTracks: newTrack
+        });
       }
   }
   render() {
@@ -47,7 +58,7 @@ class App extends Component {
             <SearchBar />
             <div className="App-playlist">
               {/* Pass state of component to SearchResults. SearchResults renders TrackList */}
-              <SearchResults searchResults={this.state.searchResults} />
+              <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
 
               {/* Pass state of component to PlayList. PlayList renders another TrackList */}
               <Playlist playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} />
