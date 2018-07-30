@@ -40,8 +40,11 @@ class App extends Component {
       addedTrack.id === track.id)) {
         return;
       } else {
+        // Cannot push into a state array in React
+        // because you don't want to modify the original array
+        // Concat does not modify the original array
+        // Reference: https://blog.logrocket.com/immutability-in-react-ebe55253a1cc
         const newTrack = playlistTracks.concat(track);
-        // playlistTracks.push(track);
         this.setState({
           playlistTracks: newTrack
         });
