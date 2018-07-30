@@ -15,7 +15,7 @@ class SearchResults extends Component {
                      * and rendered by ../Track/Track.js
                     */
                 }               
-                 <TrackList tracks={this.props.searchResults} />
+                 <TrackList tracks={this.props.searchResults} onAdd={this.props.onAdd} isRemoval={false} />
             </div>
         );
     }

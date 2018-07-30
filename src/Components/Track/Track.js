@@ -7,16 +7,26 @@ import './Track.css';
 // Set the class name to Track-action.
 
 class Track extends Component {
+    constructor(props) {
+        super(props);
+        this.addTrack = this.addTrack.bind(this);
+    }
 
+    addTrack(){
+        this.props.onAdd(this.props.track);
+        console.log("hey!!!");
+    }
     renderAction() {
         const minus = "-";
         const plus = "+";
-        if (this.props.isRemoval === true) {
-            return minus;
+        const isRemove = this.props.isRemoval;
+        if (isRemove) {
+            return <a className="Track-action">{minus}</a>
         } else {
-            return plus;
+            return <a onClick={this.addTrack} className="Track-action">{plus}</a>
         }
     }
+
     render() {
         return(
             <div className="Track">
@@ -25,7 +35,7 @@ class Track extends Component {
                     <h3>{this.props.track.name}</h3>
                     <p>{this.props.track.artist} | {this.props.track.album}</p>
                 </div>
-                <a className="Track-action">{this.renderAction()}</a>
+                {this.renderAction()}
             </div>
 
         );
