@@ -10,18 +10,22 @@ class Track extends Component {
     constructor(props) {
         super(props);
         this.addTrack = this.addTrack.bind(this);
+        this.removeTrack = this.removeTrack.bind(this);
     }
 
     addTrack(){
         this.props.onAdd(this.props.track);
-        console.log("hey!!!");
+    }
+    removeTrack(){
+        this.props.onRemove(this.props.track);
+        console.log("remove me!");
     }
     renderAction() {
         const minus = "-";
         const plus = "+";
         const isRemove = this.props.isRemoval;
         if (isRemove) {
-            return <a className="Track-action">{minus}</a>
+            return <a onClick={this.removeTrack} className="Track-action">{minus}</a>
         } else {
             return <a onClick={this.addTrack} className="Track-action">{plus}</a>
         }
