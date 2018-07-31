@@ -62,8 +62,6 @@ class App extends Component {
     this.setState({
       playlistTracks: filteredTracks
     });
-    // console.log(filteredTracks);
-    console.log(playlistTracks);
   }
   render() {
     return (
