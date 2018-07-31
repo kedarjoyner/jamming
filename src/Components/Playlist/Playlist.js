@@ -15,7 +15,7 @@ class Playlist extends Component {
                      * and rendered by ../Track/Track.js
                     */
                 }
-                <TrackList tracks={this.props.playlistTracks} isRemoval={true}/>
+                <TrackList tracks={this.props.playlistTracks} onRemove={this.props.onRemove} isRemoval={true}/>
                 <a className="Playlist-save">Save to Spotify</a>
             </div>
 
