@@ -36,6 +36,9 @@ class App extends Component {
       
       // Bind current value of this to removeTrack();
       this.removeTrack = this.removeTrack.bind(this);
+
+      // Bind current value of this to updatePlaylistName();
+      this.updatePlaylistName = this.updatePlaylistName.bind(this);
   }
   addTrack(track){
     const playlistTracks = this.state.playlistTracks;
@@ -63,6 +66,11 @@ class App extends Component {
       playlistTracks: filteredTracks
     });
   }
+  updatePlaylistName(name){
+    this.setState({
+      playlistName: name
+    });
+  }
   render() {
     return (
       <div className="App-wrap">
@@ -74,7 +82,7 @@ class App extends Component {
               <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
 
               {/* Pass state of component to PlayList. PlayList renders another TrackList */}
-              <Playlist playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} onRemove={this.removeTrack} />
+              <Playlist playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} onRemove={this.removeTrack} onNameChange={this.updatePlaylistName} />
             </div>
           </div>
       </div>
