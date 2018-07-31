@@ -5,10 +5,19 @@ import './Playlist.css';
 // Renders TrackList component
 
 class Playlist extends Component {
+    constructor(props){
+        super(props);
+
+        this.handleNameChange = this.handleNameChange.bind(this);
+    }
+
+    handleNameChange(e){
+        this.props.onNameChange(e.target.value);
+    }
     render() {
         return (
             <div className="Playlist">
-                <input defaultValue={'New Playlist'}/>
+                <input onChange={this.handleNameChange} defaultValue={'New Playlist'}/>
                 {
                     /* Pass state of playlistTracks property to TrackList
                      * Property gets moved through .map() function in ../Tracklist/Tracklist.js 
