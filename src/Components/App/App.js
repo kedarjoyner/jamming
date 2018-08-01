@@ -13,23 +13,41 @@ class App extends Component {
             name: "Highway Tune", 
             artist: "Greta Van Fleet", 
             album: "Black Smoke Rising", 
-            id: 1235
+            id: 1235,
+            uri: 'spotify:track:6rqhFgbbKwnb9MLmUQDhG6'
           },
           {
             name: "Daisy", 
             artist: "Goodbye June", 
             album: "Magic Valley", 
-            id: 3447
+            id: 3447,
+            uri: 'spotify:track:7rqhFgbbKwnb9MLmUQDhG6'
           },
           {
             name: "Wild Animal", 
             artist: "Rival Sons", 
             album: "Head Down", 
-            id: 8475
+            id: 8475,
+            uri: 'spotify:track:8rqhFgbbKwnb9MLmUQDhG6'
           }
         ], 
         playlistName: "New Music", 
-        playlistTracks: []
+        playlistTracks: [
+          {
+            name: "Daisy", 
+            artist: "Goodbye June", 
+            album: "Magic Valley", 
+            id: 3447,
+            uri: 'spotify:track:7rqhFgbbKwnb9MLmUQDhG6'
+          },
+          {
+            name: "Wild Animal", 
+            artist: "Rival Sons", 
+            album: "Head Down", 
+            id: 8475,
+            uri: 'spotify:track:8rqhFgbbKwnb9MLmUQDhG6'
+          }
+        ]
       }
       // Bind current value of this to addTrack()
       this.addTrack = this.addTrack.bind(this);
@@ -39,6 +57,9 @@ class App extends Component {
 
       // Bind current value of this to updatePlaylistName();
       this.updatePlaylistName = this.updatePlaylistName.bind(this);
+
+      // Bind current value of this to savePlaylist()
+      this.savePlaylist = this.savePlaylist.bind(this);
   }
   addTrack(track){
     const playlistTracks = this.state.playlistTracks;
@@ -71,6 +92,15 @@ class App extends Component {
       playlistName: name
     });
   }
+  savePlaylist(){
+    // Adds uri value from playlist tracks to the trackURIs array
+    const trackURIs = [];
+    const playlistTracks = this.state.playlistTracks;
+    playlistTracks.map(track => {
+      return trackURIs.push(track.uri);
+    });
+    console.log(trackURIs);
+  }
   render() {
     return (
       <div className="App-wrap">
@@ -82,7 +112,7 @@ class App extends Component {
               <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
 
               {/* Pass state of component to PlayList. PlayList renders another TrackList */}
-              <Playlist playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} onRemove={this.removeTrack} onNameChange={this.updatePlaylistName} />
+              <Playlist playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} onRemove={this.removeTrack} onNameChange={this.updatePlaylistName} onSave={this.savePlaylist} />
             </div>
           </div>
       </div>
