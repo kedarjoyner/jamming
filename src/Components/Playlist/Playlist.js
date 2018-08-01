@@ -14,6 +14,9 @@ class Playlist extends Component {
     handleNameChange(e){
         this.props.onNameChange(e.target.value);
     }
+    // onSave(){
+    //     this.props.onSave()
+    // }
     render() {
         return (
             <div className="Playlist">
@@ -25,7 +28,7 @@ class Playlist extends Component {
                     */
                 }
                 <TrackList tracks={this.props.playlistTracks} onRemove={this.props.onRemove} isRemoval={true}/>
-                <a className="Playlist-save">Save to Spotify</a>
+                <a onClick={this.props.onSave} className="Playlist-save">Save to Spotify</a>
             </div>
 
         );
