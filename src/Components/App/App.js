@@ -60,6 +60,8 @@ class App extends Component {
 
       // Bind current value of this to savePlaylist()
       this.savePlaylist = this.savePlaylist.bind(this);
+
+      this.search = this.search.bind(this);
   }
   addTrack(track){
     const playlistTracks = this.state.playlistTracks;
@@ -101,6 +103,9 @@ class App extends Component {
     });
     console.log(trackURIs);
   }
+  search(term){
+    console.log(term);
+  }
   render() {
     return (
       <div className="App-wrap">
@@ -109,7 +114,7 @@ class App extends Component {
             <SearchBar />
             <div className="App-playlist">
               {/* Pass state of component to SearchResults. SearchResults renders TrackList */}
-              <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
+              <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} onSearch={this.search} />
 
               {/* Pass state of component to PlayList. PlayList renders another TrackList */}
               <Playlist playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} onRemove={this.removeTrack} onNameChange={this.updatePlaylistName} onSave={this.savePlaylist} />
