@@ -1,5 +1,5 @@
 const accessToken = '';
-const authorizeUrl = 'https://accounts.spotify.com/authorize?';
+const authorizeUrl = 'https://accounts.spotify.com/authorize/?';
 const clientId = 'client_id=04772450bf1842468d319210630d7c46';
 const responseType = '&response_type=token';
 const redirectUri = '&redirect_uri=http://localhost:3000/callback/';

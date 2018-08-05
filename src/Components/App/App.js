@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import SearchBar from '../SearchBar/SearchBar';
 import SearchResults from '../SearchResults/SearchResults';
 import Playlist from '../Playlist/Playlist';
+import Spotify from '../../util/Spotify';
 import './App.css';
 
 class App extends Component {
@@ -111,7 +112,7 @@ class App extends Component {
       <div className="App-wrap">
           <h1>Ja<span className="highlight">mmm</span>ing</h1>
           <div className="App">
-            <SearchBar />
+            <SearchBar authorize={Spotify}/>
             <div className="App-playlist">
               {/* Pass state of component to SearchResults. SearchResults renders TrackList */}
               <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} onSearch={this.search} />
