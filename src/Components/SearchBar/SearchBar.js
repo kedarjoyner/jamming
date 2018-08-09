@@ -11,7 +11,6 @@ class SearchBar extends Component {
 
         this.search = this.search.bind(this);
         this.handleTermChange = this.handleTermChange.bind(this);
-        // this.authorizeUser = this.authorizeUser.bind(this);
     }
     search(){
         this.props.onSearch(this.state.searchTerm);
