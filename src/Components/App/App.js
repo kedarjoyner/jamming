@@ -9,29 +9,7 @@ class App extends Component {
   constructor(props) {
     super(props);
       this.state = {
-        searchResults: [
-          {
-            name: "Highway Tune", 
-            artist: "Greta Van Fleet", 
-            album: "Black Smoke Rising", 
-            id: 1235,
-            uri: 'spotify:track:6rqhFgbbKwnb9MLmUQDhG6'
-          },
-          {
-            name: "Daisy", 
-            artist: "Goodbye June", 
-            album: "Magic Valley", 
-            id: 3447,
-            uri: 'spotify:track:7rqhFgbbKwnb9MLmUQDhG6'
-          },
-          {
-            name: "Wild Animal", 
-            artist: "Rival Sons", 
-            album: "Head Down", 
-            id: 8475,
-            uri: 'spotify:track:8rqhFgbbKwnb9MLmUQDhG6'
-          }
-        ], 
+        searchResults: [], 
         playlistName: "New Music", 
         playlistTracks: [
           {
@@ -105,7 +83,11 @@ class App extends Component {
     console.log(trackURIs);
   }
   search(term){
-    Spotify.search(term);
+    Spotify.search(term).then(results => {
+      this.setState({
+        searchResults: results
+      });
+    });
   }
   render() {
     return (
