@@ -11,7 +11,7 @@ class SearchBar extends Component {
 
         this.search = this.search.bind(this);
         this.handleTermChange = this.handleTermChange.bind(this);
-        this.authorizeUser = this.authorizeUser.bind(this);
+        // this.authorizeUser = this.authorizeUser.bind(this);
     }
     search(){
         this.props.onSearch(this.state.searchTerm);
@@ -23,10 +23,10 @@ class SearchBar extends Component {
 
         console.log(this.state.searchTerm);
     }
-    authorizeUser() {
-        //check if authorized first
-        this.props.authorize.getAccessToken();
-    }
+    // authorizeUser() {
+    //     //check if authorized first
+    //     this.props.search();
+    // }
     // handleAuthorization(event){
 
     // }
@@ -34,7 +34,7 @@ class SearchBar extends Component {
         return (
             <div className="SearchBar">
                 <input onChange={this.handleTermChange} placeholder="Enter a Song, Album, or Artist" />
-                <a onClick={this.authorizeUser}>Search</a>
+                <a onClick={this.search}>Search</a>
             </div>
         );
     }

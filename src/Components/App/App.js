@@ -105,17 +105,18 @@ class App extends Component {
     console.log(trackURIs);
   }
   search(term){
-    console.log(term);
+    Spotify.getAccessToken();
+    console.log(Spotify.search());
   }
   render() {
     return (
       <div className="App-wrap">
           <h1>Ja<span className="highlight">mmm</span>ing</h1>
           <div className="App">
-            <SearchBar authorize={Spotify}/>
+            <SearchBar onSearch={this.search} />
             <div className="App-playlist">
               {/* Pass state of component to SearchResults. SearchResults renders TrackList */}
-              <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} onSearch={this.search} />
+              <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
 
               {/* Pass state of component to PlayList. PlayList renders another TrackList */}
               <Playlist playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} onRemove={this.removeTrack} onNameChange={this.updatePlaylistName} onSave={this.savePlaylist} />

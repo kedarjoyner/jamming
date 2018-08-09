@@ -10,43 +10,43 @@ let Spotify = {
 
     getAccessToken(){      
         authorizeUrl += `${clientId}${redirectUri}${scope}${responseType}`;
-     
-     if( accessToken ) {
-        return accessToken;
+        
+        if( accessToken ) {
+            return accessToken;
 
-     } else if( accessToken !== undefined && accessToken !== null ) {
-        const url = window.location.href;
-        accessToken = url.match(/access_token=([^&]*)/);
-        let expiresIn = url.match(/expires_in=([^&]*)/);
+        } else if( accessToken !== undefined && accessToken !== null ) {
+            const url = window.location.href;
+            accessToken = url.match(/access_token=([^&]*)/);
+            let expiresIn = url.match(/expires_in=([^&]*)/);
 
-        window.setTimeout(() => accessToken = '', expiresIn * 1000);
-        window.history.pushState('Access Token', null, '/');
+            window.setTimeout(() => accessToken = '', expiresIn * 1000);
+            window.history.pushState('Access Token', null, '/');
 
-     } else {
-        window.location = authorizeUrl;
+        } else {
+            window.location = authorizeUrl;
+        }
+    },
+    search(term){
+        const url = 'https://api.spotify.com/v1/search?'
+        const tracks = 'type=track';
+        const query = `&q=${term}`;
+        const endpoint = `${url}${tracks}${query}`;
+              
+        fetch(endpoint, {
+            header: {
+                'Authorization': 'Bearer ' + this.getAccessToken()
+            }
+        }).then(response => {
+            if(response.ok){
+                return response.json();
+            }
+            throw new Error('Request failed!');
+        }, networkError => console.log(networkError.message)
+        ).then(jsonResponse => {
+            console.log(jsonResponse);
+        });
 
-     }
-
-    //  fetch(endpoint, {
-    //     method: "GET", // *GET, POST, PUT, DELETE, etc.
-    //     headers: {
-    //         'Authorization': 'Bearer ' + accessToken,
-    //     }
-    //  }).then(response => {
-    //      if(response.ok) {
-    //          return response;
-    //      }
-    //      throw new Error('Request failed!');
-
-    //     }, networkError => {
-
-    //     console.log(networkError.message)
-
-    //     }).then(response => {
-    //         console.log(response);
-    //     });
-    // } 
-    }  
+    } 
 }
 
 
