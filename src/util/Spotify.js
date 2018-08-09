@@ -10,42 +10,41 @@ const scope = '&scope=playlist-modify-public';
 let Spotify = {
 
     getAccessToken(){      
-        authorizeUrl += `${clientId}${redirectUri}${scope}${responseType}`;
+       const accessUrl = `${authorizeUrl}${clientId}${responseType}${scope}${redirectUri}`;
+
+
         const url = window.location.href;
         const getToken = url.match(/access_token=([^&]*)/);
         const getExpiration = url.match(/expires_in=([^&]*)/);
 
-        if ( getToken != null ) {
+        if (accessToken) {
+            return accessToken;
+        }
 
-            accessToken = getToken;
+        if ( getToken && getExpiration ) {
+            accessToken = getToken[1];
+            expiresIn = Number(getExpiration[1]);
 
-            if ( getExpiration ) {
-                expiresIn = getExpiration;
-    
-                window.setTimeout(() => accessToken = '', expiresIn * 1000);
-                window.history.pushState('Access Token', null, '/');
-            }
+            window.setTimeout(() => accessToken = '', expiresIn * 1000);
+            window.history.pushState('Access Token', null, '/');
 
-        } else if( accessToken === '' || getToken === null ) {
-            window.location = authorizeUrl;
+            return accessToken;  
 
         } else {
-            console.log('no acesss token');
+            window.location = accessUrl;
         }
 
     },
 
     search(term){
-
-        this.getAccessToken();
+        Spotify.getAccessToken();
         const url = 'https://api.spotify.com/v1/search?'
         const tracks = 'type=track';
         const query = `&q=${term}`;
         const endpoint = `${url}${tracks}${query}`;
               
-        fetch(endpoint, {
-            metod: 'GET',
-            header: {
+        return fetch(endpoint, {
+            headers: {
                 'Authorization': 'Bearer ' + accessToken
             }
         }).then(response => {
