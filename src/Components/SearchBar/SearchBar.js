@@ -23,13 +23,7 @@ class SearchBar extends Component {
 
         console.log(this.state.searchTerm);
     }
-    // authorizeUser() {
-    //     //check if authorized first
-    //     this.props.search();
-    // }
-    // handleAuthorization(event){
 
-    // }
     render() {
         return (
             <div className="SearchBar">

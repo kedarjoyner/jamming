@@ -27,6 +27,8 @@ let Spotify = {
         }
     },
     search(term){
+        this.getAccessToken();
+
         const url = 'https://api.spotify.com/v1/search?'
         const tracks = 'type=track';
         const query = `&q=${term}`;
@@ -34,7 +36,7 @@ let Spotify = {
               
         fetch(endpoint, {
             header: {
-                'Authorization': 'Bearer ' + this.getAccessToken()
+                'Authorization': 'Bearer ' + accessToken
             }
         }).then(response => {
             if(response.ok){
