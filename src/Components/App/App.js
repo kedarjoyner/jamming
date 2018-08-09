@@ -2,35 +2,14 @@ import React, { Component } from 'react';
 import SearchBar from '../SearchBar/SearchBar';
 import SearchResults from '../SearchResults/SearchResults';
 import Playlist from '../Playlist/Playlist';
+import Spotify from '../../util/Spotify';
 import './App.css';
 
 class App extends Component {
   constructor(props) {
     super(props);
       this.state = {
-        searchResults: [
-          {
-            name: "Highway Tune", 
-            artist: "Greta Van Fleet", 
-            album: "Black Smoke Rising", 
-            id: 1235,
-            uri: 'spotify:track:6rqhFgbbKwnb9MLmUQDhG6'
-          },
-          {
-            name: "Daisy", 
-            artist: "Goodbye June", 
-            album: "Magic Valley", 
-            id: 3447,
-            uri: 'spotify:track:7rqhFgbbKwnb9MLmUQDhG6'
-          },
-          {
-            name: "Wild Animal", 
-            artist: "Rival Sons", 
-            album: "Head Down", 
-            id: 8475,
-            uri: 'spotify:track:8rqhFgbbKwnb9MLmUQDhG6'
-          }
-        ], 
+        searchResults: [], 
         playlistName: "New Music", 
         playlistTracks: [
           {
@@ -104,17 +83,21 @@ class App extends Component {
     console.log(trackURIs);
   }
   search(term){
-    console.log(term);
+    Spotify.search(term).then(results => {
+      this.setState({
+        searchResults: results
+      });
+    });
   }
   render() {
     return (
       <div className="App-wrap">
           <h1>Ja<span className="highlight">mmm</span>ing</h1>
           <div className="App">
-            <SearchBar />
+            <SearchBar onSearch={this.search}/>
             <div className="App-playlist">
               {/* Pass state of component to SearchResults. SearchResults renders TrackList */}
-              <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} onSearch={this.search} />
+              <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
 
               {/* Pass state of component to PlayList. PlayList renders another TrackList */}
               <Playlist playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} onRemove={this.removeTrack} onNameChange={this.updatePlaylistName} onSave={this.savePlaylist} />

@@ -22,11 +22,12 @@ class SearchBar extends Component {
 
         console.log(this.state.searchTerm);
     }
+
     render() {
         return (
             <div className="SearchBar">
                 <input onChange={this.handleTermChange} placeholder="Enter a Song, Album, or Artist" />
-                <a>Search</a>
+                <a onClick={this.search}>Search</a>
             </div>
         );
     }
