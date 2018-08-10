@@ -58,16 +58,22 @@ class App extends Component {
       playlistName: name
     });
   }
-  savePlaylist() {
-    let tracks = this.state.playlistTracks;
-    if(tracks.length && this.state.playlistName) {
-      let trackURIs = tracks.map(trackIndex => trackIndex.uri);
-      Spotify.savePlaylist(this.state.playlistName, trackURIs).then(() => {
+  savePlaylist(){
+    // Adds uri value from playlist tracks to the trackURIs array
+    let trackURIs = [];
+    let playlistTracks = this.state.playlistTracks;
+
+    if(playlistTracks.length && this.state.playlistName) {
+
+      playlistTracks.map(track => {
+        return trackURIs.push(track.uri);
+      });
+      Spotify.savePlaylist(this.state.playlistName, trackURIs).then(() => { 
         this.setState({
           playlistName: 'New Playlist',
           playlistTracks: []
         });
-        document.getElementById('Playlist-name').value = this.state.playlistName;
+        document.getElementById('Playlist-name').value = this.state.playlistName;      
       });
     }
   }
