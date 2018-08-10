@@ -58,23 +58,16 @@ class App extends Component {
       playlistName: name
     });
   }
-  savePlaylist(){
-    // Adds uri value from playlist tracks to the trackURIs array
-    let trackURIs = [];
-    let playlistTracks = this.state.playlistTracks;
-    let playlistName = this.state.playlistName;
-
-    if(playlistTracks.length && playlistName) {
-
-      playlistTracks.map(track => {
-        return trackURIs.push(track.uri);
-      });
-      Spotify.savePlaylist(playlistName, trackURIs).then(() => { 
+  savePlaylist() {
+    let tracks = this.state.playlistTracks;
+    if(tracks.length && this.state.playlistName) {
+      let trackURIs = tracks.map(trackIndex => trackIndex.uri);
+      Spotify.savePlaylist(this.state.playlistName, trackURIs).then(() => {
         this.setState({
           playlistName: 'New Playlist',
           playlistTracks: []
         });
-        document.getElementById('Playlist-name').value = playlistName;      
+        document.getElementById('Playlist-name').value = this.state.playlistName;
       });
     }
   }
@@ -94,7 +87,6 @@ class App extends Component {
             <div className="App-playlist">
               {/* Pass state of component to SearchResults. SearchResults renders TrackList */}
               <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
-                {Spotify.savePlaylist()}
               {/* Pass state of component to PlayList. PlayList renders another TrackList */}
               <Playlist playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} onRemove={this.removeTrack} onNameChange={this.updatePlaylistName} onSave={this.savePlaylist} />
             </div>

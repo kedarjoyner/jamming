@@ -62,7 +62,7 @@ let Spotify = {
 
     }, 
     savePlaylist(playlistName, trackURIs){
-        if( playlistName && trackURIs ) {
+        if( playlistName && trackURIs.length  ) {
             const accessToken = Spotify.getAccessToken();
             const headers =  { Authorization: 'Bearer ' + accessToken };
             let user_id;
