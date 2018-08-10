@@ -20,7 +20,7 @@ class Playlist extends Component {
     render() {
         return (
             <div className="Playlist">
-                <input onChange={this.handleNameChange} defaultValue={'New Playlist'}/>
+                <input id="Playlist-name" onChange={this.handleNameChange} defaultValue={'New Playlist'}/>
                 {
                     /* Pass state of playlistTracks property to TrackList
                      * Property gets moved through .map() function in ../Tracklist/Tracklist.js 
