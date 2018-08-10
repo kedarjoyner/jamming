@@ -58,9 +58,67 @@ let Spotify = {
                 return [];
               }
               return jsonResponse.tracks.items.map(track => ({id: track.id, name: track.name, artist: track.artists[0].name, album: track.album.name, uri: track.uri}));
-            });
+        });
 
-    } 
+    }, 
+    savePlaylist(playlistName, trackURIs){
+        if( playlistName && trackURIs ) {
+            const accessToken = Spotify.getAccessToken();
+            const headers =  { Authorization: 'Bearer ' + accessToken };
+            let user_id;
+
+            fetch('https://api.spotify.com/v1/me', {
+
+                headers: headers
+
+            }).then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                   throw new Error('Request failed!');
+            }, networkError => console.log(networkError.message)
+
+            ).then(jsonResponse => {
+                console.log(jsonResponse);
+                user_id = jsonResponse.id; 
+
+                return fetch(`https://api.spotify.com/v1/users/${user_id}/playlists`, {
+                    headers: headers,
+                    method: 'POST',
+                    body: JSON.stringify({ name: playlistName })
+
+                }).then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw new Error('Request failed!');
+
+                }, networkError => {
+                    console.log(networkError.message);
+
+                }).then(jsonResponse => {
+                    let playlist_id = jsonResponse.id;
+
+                    return fetch(`https://api.spotify.com/v1/users/${user_id}/playlists/${playlist_id}/tracks`, {
+                        headers: headers,
+                        method: 'POST',
+                        body: JSON.stringify({ uris: trackURIs })
+
+                    }).then(response => {
+                        if(response.ok) {
+                            return response.json();
+                        }
+                        throw new Error('Request failed!');
+                    }, networkError => {
+                        console.log(networkError.message);
+                    }).then(jsonResponse => jsonResponse);
+                });
+            });
+        } else {
+            return;
+        }
+    }
+
 }
 
 
