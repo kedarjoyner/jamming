@@ -64,10 +64,10 @@ let Spotify = {
     savePlaylist(playlistName, trackURIs){
         if( playlistName && trackURIs.length  ) {
             const accessToken = Spotify.getAccessToken();
-            const headers =  { Authorization: 'Bearer ' + accessToken };
+            const headers =  { Authorization: `Bearer ${accessToken}` };
             let user_id;
 
-            fetch('https://api.spotify.com/v1/me', {
+            return fetch('https://api.spotify.com/v1/me', {
 
                 headers: headers
 
@@ -75,7 +75,7 @@ let Spotify = {
                 if (response.ok) {
                     return response.json();
                 }
-                   throw new Error('Request failed!');
+                throw new Error('Request failed!');
             }, networkError => console.log(networkError.message)
 
             ).then(jsonResponse => {
